@@ -12,7 +12,7 @@ export function Sidebar({ currentView, onNavigate }: SidebarProps) {
     const { theme, setTheme } = useTheme();
 
     return (
-        <div className="w-64 bg-slate-900 border-r border-slate-800 flex flex-col h-screen fixed left-0 top-0 transition-colors duration-300 dark:bg-slate-900 dark:border-slate-800 bg-white border-slate-200">
+        <div className="w-54 bg-slate-900 border-r border-slate-800 flex flex-col h-screen fixed left-0 top-0 transition-colors duration-300 dark:bg-slate-900 dark:border-slate-800 bg-white border-slate-200">
             <div className="p-6 border-b border-slate-800 dark:border-slate-800 border-slate-200">
                 <h1 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
                     <PieChart className="text-blue-500" />

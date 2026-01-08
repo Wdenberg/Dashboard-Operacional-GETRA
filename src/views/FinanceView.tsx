@@ -65,7 +65,7 @@ export function FinanceView() {
             <FilterBar />
 
             {/* Global Totals */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-2 gap-6">
                 <MetricCard
                     title="Total Geral Previsto"
                     value={formatMoney(metrics.predicted)}
@@ -83,7 +83,7 @@ export function FinanceView() {
 
             {/* Detailed Comparisons */}
             <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Detalhamento Operacional</h3>
-            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-3">
                 {/* KM Quantity */}
                 <ComparisonCard
                     title="Quilometragem (Qtd)"

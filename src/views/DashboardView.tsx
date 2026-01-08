@@ -61,7 +61,7 @@ export function DashboardView() {
             <FilterBar />
 
             {/* KPIs */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <KpiCard
                     title="Total de Viagens (SEI)"
                     value={kpis.uniqueSei}
@@ -80,7 +80,7 @@ export function DashboardView() {
             </div>
 
             {/* Status Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <StatusCard label="Solicitada" value={statusCounts.SOLICITADA} color="bg-indigo-500" icon={<Clock size={16} />} />
                 <StatusCard label="Confirmada" value={statusCounts.CONFIRMADA} color="bg-blue-500" icon={<CheckCircle size={16} />} />
                 <StatusCard label="Realizada" value={statusCounts.REALIZADA} color="bg-emerald-500" icon={<CheckCircle size={16} />} />
