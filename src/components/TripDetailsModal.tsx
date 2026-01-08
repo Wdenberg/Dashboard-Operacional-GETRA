@@ -1,6 +1,6 @@
 
-import React, { ReactNode } from 'react';
-import { X, Calendar, MapPin, FileText, CheckCircle, Clock, DollarSign, Activity, Building2, Info, Flag, User, Phone, Mail, Bus, Route, CircleDot } from 'lucide-react';
+import { ReactNode } from 'react';
+import { X, Calendar, FileText, Clock, Building2, Info, Flag, User, Phone, Mail, Bus, Route, CircleDot } from 'lucide-react';
 import { TripData } from '../types';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -17,7 +17,7 @@ interface TripDetailsModalProps {
 
 
 // UI Components Stubs for compatibility with user request
-const Button = ({ variant, size, onClick, className, children }: any) => (
+const Button = ({ onClick, className, children }: any) => (
     <button onClick={onClick} className={cn("inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none disabled:opacity-50", className)}>
         {children}
     </button>

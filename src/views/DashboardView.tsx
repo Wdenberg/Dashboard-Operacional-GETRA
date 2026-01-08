@@ -108,7 +108,7 @@ export function DashboardView() {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
-                            {recentTrips.map((trip, idx) => (
+                            {recentTrips.map((trip) => (
                                 <tr
                                     key={trip.requestId}
                                     onClick={() => handleTripClick(trip)}
