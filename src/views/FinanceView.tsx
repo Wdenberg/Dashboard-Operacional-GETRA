@@ -65,7 +65,7 @@ export function FinanceView() {
      * Calcula motoristas adicionais e custo baseado na distância
      * Regra: +1 motorista a cada 500km (ex: 501km precisa de 1 add)
      * Custo: R$ 100 por motorista adicional
-     */
+     
     const calculateAdditionalDriver = (distanceKm: number, additionalDriverPredicted: string, additionalDriverRealized: string) => {
         // Math.floor divide por 500 e arredonda para baixo
         // Ex: 499km = 0 | 500km = 1 | 999km = 1 | 1000km = 2
@@ -80,6 +80,7 @@ export function FinanceView() {
             additionalDriverRealized
         };
     };
+    */
 
     return (
         <div className="space-y-6">

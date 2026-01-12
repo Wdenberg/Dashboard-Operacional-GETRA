@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { useData } from '../context/DataContext';
 import { FilterBar } from '../components/FilterBar';
-import { Car, FileText, MapPin, CheckCircle, XCircle, AlertCircle, Clock, Search } from 'lucide-react';
+import { Car, FileText, CheckCircle, XCircle, AlertCircle, Clock, Search } from 'lucide-react';
 import { TripDetailsModal } from '../components/TripDetailsModal';
 import { TripData } from '../types';
 import { formatDate } from '@/lib/dataFormatter';
