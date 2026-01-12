@@ -5,6 +5,7 @@ import { Car, FileText, MapPin, CheckCircle, XCircle, AlertCircle, Clock, Search
 import { TripDetailsModal } from '../components/TripDetailsModal';
 import { TripData } from '../types';
 import { formatDate } from '@/lib/dataFormatter';
+import { formatTitleCase } from '@/lib/formatTitleCases';
 
 export function DashboardView() {
     const { filteredData, loading } = useData();
@@ -13,10 +14,10 @@ export function DashboardView() {
 
     const kpis = useMemo(() => {
         const uniqueSei = new Set(filteredData.map(d => d.seiNumber).filter(Boolean)).size;
-        const totalRequests = filteredData.length;
-        const uniqueDestinations = new Set(filteredData.map(d => d.destination).filter(Boolean)).size;
+        const totalRequests = filteredData.filter(d => d.requestId).length;
 
-        return { uniqueSei, totalRequests, uniqueDestinations };
+
+        return { uniqueSei, totalRequests };
     }, [filteredData]);
 
     const statusCounts = useMemo(() => {
@@ -72,11 +73,6 @@ export function DashboardView() {
                     value={kpis.totalRequests}
                     icon={<FileText className="text-purple-500" size={24} />}
                 />
-                <KpiCard
-                    title="Destinos Únicos"
-                    value={kpis.uniqueDestinations}
-                    icon={<MapPin className="text-rose-500" size={24} />}
-                />
             </div>
 
             {/* Status Cards */}
@@ -92,17 +88,20 @@ export function DashboardView() {
             {/* Recent Trips Table */}
             <div className="bg-slate-800 border border-slate-700 dark:bg-slate-800 dark:border-slate-700 bg-white border-slate-200 rounded-xl shadow-sm overflow-hidden transition-colors">
                 <div className="p-6 border-b border-slate-200 dark:border-slate-700">
-                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Viagens Recentes</h3>
+                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Solicitações</h3>
                 </div>
                 <div className="overflow-x-auto">
                     <table className="w-full text-left text-sm">
                         <thead className="bg-slate-50 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400">
                             <tr>
+                                <th className="px-6 py-3 font-medium">Ordem</th>
                                 <th className="px-6 py-3 font-medium">SEI</th>
-                                <th className="px-6 py-3 font-medium">Solicitante</th>
-                                <th className="px-6 py-3 font-medium">Data Saída</th>
+                                <th className="px-6 py-3 font-medium">Origem</th>
                                 <th className="px-6 py-3 font-medium">Destino</th>
-                                <th className="px-6 py-3 font-medium">Passageiros</th>
+                                <th className="px-6 py-3 font-medium">Data Saída</th>
+                                <th className="px-6 py-3 font-medium">Data Retorno</th>
+
+                                <th className="px-6 py-3 font-medium">Empresas</th>
                                 <th className="px-6 py-3 font-medium">Status</th>
                                 <th className="px-6 py-3 font-medium">Ação</th>
                             </tr>
@@ -111,17 +110,22 @@ export function DashboardView() {
                             {recentTrips.map((trip) => (
                                 <tr
                                     key={trip.requestId}
-                                    onClick={() => handleTripClick(trip)}
+
                                     className="hover:bg-slate-50 dark:hover:bg-slate-700/50 cursor-pointer transition-colors"
                                 >
-                                    <td className="px-6 py-4 font-medium text-slate-900 dark:text-slate-200">{trip.seiNumber}</td>
-                                    <td className="px-6 py-4 text-slate-500 dark:text-slate-400">{trip.nameSolicitant}</td>
+                                    <td className="px-6 py-4 font-medium text-slate-900 dark:text-slate-200">{formatTitleCase(trip.orderNumber)}</td>
+                                    <td className="px-6 py-4 font-medium text-slate-900 dark:text-slate-200">{formatTitleCase(trip.seiNumber)}</td>
+                                    <td className="px-6 py-4 text-slate-500 dark:text-slate-400">{formatTitleCase(trip.originCity)}</td>
+                                    <td className="px-6 py-4 text-slate-500 dark:text-slate-400">{formatTitleCase(trip.destination)}</td>
                                     <td className="px-6 py-4 text-slate-500 dark:text-slate-400">
                                         {trip.departureDate ? formatDate(trip.departureDate) : '-'}
                                     </td>
+                                    <td className="px-6 py-4 text-slate-500 dark:text-slate-400">
+                                        {trip.returnDate ? formatDate(trip.returnDate) : '-'}
+                                    </td>
 
-                                    <td className="px-6 py-4 text-slate-500 dark:text-slate-400">{trip.destination}</td>
-                                    <td className="px-6 py-4 text-slate-500 dark:text-slate-400">{trip.qtyPassengers}</td>
+
+                                    <td className="px-6 py-4 text-slate-500 dark:text-slate-400 ">{formatTitleCase(trip.company)}</td>
                                     <td className="px-6 py-4">
                                         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
                                             ${trip.status.includes('CONFIRMADA') ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400' :
@@ -132,7 +136,7 @@ export function DashboardView() {
                                         </span>
                                     </td>
                                     <td className="px-6 py-4">
-                                        <button className="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300">
+                                        <button onClick={() => handleTripClick(trip)}>
                                             <Search size={18} />
                                         </button>
                                     </td>
@@ -156,7 +160,7 @@ function KpiCard({ title, value, icon }: { title: string, value: number, icon: R
     return (
         <div className="bg-slate-800 border-slate-700 dark:bg-slate-800 dark:border-slate-700 bg-white border-slate-200 p-6 rounded-xl border shadow-sm flex items-center justify-between transition-colors">
             <div>
-                <h3 className="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">{title}</h3>
+                <h3 className="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">{formatTitleCase(title)}</h3>
                 <p className="text-3xl font-bold text-slate-900 dark:text-white">{value}</p>
             </div>
             <div className="bg-slate-100 dark:bg-slate-900/50 p-3 rounded-lg border border-slate-200 dark:border-slate-700/50">

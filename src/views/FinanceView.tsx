@@ -15,8 +15,10 @@ export function FinanceView() {
             kmCostPred: 0, kmCostReal: 0,
             dailyQtyPred: 0, dailyQtyReal: 0,
             dailyCostPred: 0, dailyCostReal: 0,
-            orçamentoTotal: 14000000,
+            orçamentoTotal: 0,
             dailyQtyDone: 0,
+            additionalDriverCostPred: 0,
+            additionalDriverCostReal: 0,
         };
 
         filteredData.forEach(d => {
@@ -52,13 +54,32 @@ export function FinanceView() {
 
     const diariasFeitas = useMemo(() => {
         return filteredData
-            .filter(trip => trip.status.includes('REALIZADA')) // Filtra apenas as feitas
-            .reduce((sum, trip) => sum + (Number(trip.dailyQtyPredicted) || 0), 0); // Soma as diárias
+            .reduce((sum, trip) => sum + (Number(trip.dailyQtyRealized) || 0), 0); // Soma as diárias
     }, [filteredData]);
 
     if (loading) {
         return <div className="p-8 text-center text-slate-400 animate-pulse">Carregando dados financeiros...</div>;
     }
+
+    /**
+     * Calcula motoristas adicionais e custo baseado na distância
+     * Regra: +1 motorista a cada 500km (ex: 501km precisa de 1 add)
+     * Custo: R$ 100 por motorista adicional
+     */
+    const calculateAdditionalDriver = (distanceKm: number, additionalDriverPredicted: string, additionalDriverRealized: string) => {
+        // Math.floor divide por 500 e arredonda para baixo
+        // Ex: 499km = 0 | 500km = 1 | 999km = 1 | 1000km = 2
+        const additionalDrivers = Math.floor(distanceKm / 500);
+        const additionalCost = additionalDrivers * 100;
+
+
+        return {
+            additionalDrivers,
+            additionalCost,
+            additionalDriverPredicted,
+            additionalDriverRealized
+        };
+    };
 
     return (
         <div className="space-y-6">
@@ -118,6 +139,12 @@ export function FinanceView() {
                     icon={<DollarSign className="text-purple-500" />}
                     predLabel="Previsto" predValue={formatMoney(metrics.dailyCostPred)}
                     realLabel="Realizado" realValue={formatMoney(metrics.dailyCostReal)}
+                />
+                <ComparisonCard
+                    title="Motorista Adicional (R$)"
+                    icon={<DollarSign className="text-purple-500" />}
+                    predLabel="Previsto" predValue={formatMoney(metrics.additionalDriverCostPred)}
+                    realLabel="Realizado" realValue={formatMoney(metrics.additionalDriverCostReal)}
                 />
             </div>
 

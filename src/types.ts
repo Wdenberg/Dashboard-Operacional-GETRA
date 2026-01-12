@@ -68,6 +68,7 @@ export interface ApiRow {
 }
 
 export interface TripData {
+    orderNumber: string;
     seiNumber: string;
     departureDate: Date;
     status: string;

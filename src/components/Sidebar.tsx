@@ -2,6 +2,7 @@
 import { LayoutDashboard, DollarSign, PieChart, Moon, Sun } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { useTheme } from '../context/ThemeContext';
+import { useData } from '@/context/DataContext';
 
 interface SidebarProps {
     currentView: 'dashboard' | 'finance';
@@ -10,6 +11,10 @@ interface SidebarProps {
 
 export function Sidebar({ currentView, onNavigate }: SidebarProps) {
     const { theme, setTheme } = useTheme();
+    const { updateData } = useData();
+    const handleUpdate = () => {
+        updateData();
+    }
 
     return (
         <div className="w-54 bg-slate-900 border-r border-slate-800 flex flex-col h-screen fixed left-0 top-0 transition-colors duration-300 dark:bg-slate-900 dark:border-slate-800 bg-white border-slate-200">
@@ -58,6 +63,7 @@ export function Sidebar({ currentView, onNavigate }: SidebarProps) {
                     {theme === 'dark' ? 'Modo Claro' : 'Modo Escuro'}
                 </button>
 
+                <button onClick={handleUpdate} className="w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-blue-600/10 text-blue-500 border-blue-500 border text-sm text-center font-medium text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-colors">Atualizar</button>
                 <div className="text-xs text-slate-500 px-4">
                     Atualizado em: {new Date().toLocaleDateString()}
                 </div>

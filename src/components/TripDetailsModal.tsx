@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { cn } from '../lib/utils';
 import { format, parseISO } from 'date-fns';
+import { formatTitleCase } from '../lib/formatTitleCases';
 
 interface TripDetailsModalProps {
     isOpen: boolean;
@@ -128,13 +129,13 @@ export function TripDetailsModal({ isOpen, onClose, trip: rawTrip }: TripDetails
                             <div className="flex items-start justify-between">
                                 <div>
                                     <p className={cn("text-xs font-medium mb-1", isDark ? "text-slate-500" : "text-gray-500")}>
-                                        Detalhes da Viagem
+                                        {formatTitleCase("Detalhes da Viagem")}
                                     </p>
                                     <h3 className={cn("text-lg font-bold", isDark ? "text-white" : "text-gray-900")}>
                                         {trip.seiNumber}
                                     </h3>
                                     <Badge className={cn("mt-2 border", isDark ? statusColors[trip.status] : statusColorsLight[trip.status])}>
-                                        {trip.status}
+                                        {formatTitleCase(trip.status)}
                                     </Badge>
                                 </div>
                                 <Button
@@ -154,25 +155,25 @@ export function TripDetailsModal({ isOpen, onClose, trip: rawTrip }: TripDetails
                                 {/* Informações Gerais */}
                                 <Section title="📋 Informações Gerais" isDark={isDark}>
                                     <InfoRow icon={FileText} label="Código da Solicitação" value={trip.requestId} isDark={isDark} />
-                                    <InfoRow icon={Building2} label="Empresa" value={trip.company || 'N/A'} isDark={isDark} />
-                                    <InfoRow icon={Info} label="Programa" value={trip.program || 'N/A'} isDark={isDark} />
-                                    <InfoRow icon={Flag} label="Nome do Evento" value={trip.eventName || 'N/A'} isDark={isDark} />
+                                    <InfoRow icon={Building2} label="Empresa" value={formatTitleCase(trip.company || 'N/A')} isDark={isDark} />
+                                    <InfoRow icon={Info} label="Programa" value={formatTitleCase(trip.program || 'N/A')} isDark={isDark} />
+                                    <InfoRow icon={Flag} label="Nome do Evento" value={formatTitleCase(trip.eventName || 'N/A')} isDark={isDark} />
                                     <InfoRow icon={Calendar} label="Período do Evento" value={trip.eventPeriod || 'N/A'} isDark={isDark} />
                                     <InfoRow icon={Clock} label="Horário do Evento" value={trip.eventTime || 'N/A'} isDark={isDark} />
                                 </Section>
 
                                 {/* Solicitante */}
                                 <Section title="👤 Solicitante" isDark={isDark}>
-                                    <InfoRow icon={User} label="Nome" value={trip.nameSolicitant} isDark={isDark} />
+                                    <InfoRow icon={User} label="Nome" value={formatTitleCase(trip.nameSolicitant)} isDark={isDark} />
                                     <InfoRow icon={Phone} label="Telefone" value={trip.phoneSolicitant || 'N/A'} isDark={isDark} />
                                     <InfoRow icon={Mail} label="E-mail" value={trip.emailSolicitant || 'N/A'} isDark={isDark} />
-                                    <InfoRow icon={Building2} label="Executiva" value={trip.executive || 'N/A'} isDark={isDark} />
-                                    <InfoRow icon={Building2} label="Setor" value={trip.sector} isDark={isDark} />
+                                    <InfoRow icon={Building2} label="Executiva" value={formatTitleCase(trip.executive || 'N/A')} isDark={isDark} />
+                                    <InfoRow icon={Building2} label="Setor" value={formatTitleCase(trip.sector || 'N/A')} isDark={isDark} />
                                 </Section>
 
                                 {/* Responsável */}
                                 <Section title="📞 Responsável" isDark={isDark}>
-                                    <InfoRow icon={User} label="Nome" value={trip.nameResponsible || 'N/A'} isDark={isDark} />
+                                    <InfoRow icon={User} label="Nome" value={formatTitleCase(trip.nameResponsible || 'N/A')} isDark={isDark} />
                                     <InfoRow icon={Phone} label="Telefone" value={trip.phoneResponsible || 'N/A'} isDark={isDark} />
                                 </Section>
 
@@ -180,9 +181,9 @@ export function TripDetailsModal({ isOpen, onClose, trip: rawTrip }: TripDetails
                                 <Section title="🗺️ Trajeto" isDark={isDark}>
                                     <div className={cn("p-3 rounded-lg mb-3", isDark ? "bg-slate-700/50" : "bg-blue-50")}>
                                         <p className={cn("text-xs font-medium mb-1", isDark ? "text-slate-400" : "text-gray-500")}>Origem</p>
-                                        <p className={cn("font-semibold", isDark ? "text-cyan-400" : "text-blue-600")}>{trip.originCity || 'N/A'}</p>
-                                        <p className={cn("text-sm", isDark ? "text-slate-300" : "text-gray-700")}>{trip.originLocation || 'N/A'}</p>
-                                        <p className={cn("text-xs mt-1", isDark ? "text-slate-500" : "text-gray-500")}>{trip.originAddress || 'N/A'}</p>
+                                        <p className={cn("font-semibold", isDark ? "text-cyan-400" : "text-blue-600")}>{formatTitleCase(trip.originCity || 'N/A')}</p>
+                                        <p className={cn("text-sm", isDark ? "text-slate-300" : "text-gray-700")}>{formatTitleCase(trip.originLocation || 'N/A')}</p>
+                                        <p className={cn("text-xs mt-1", isDark ? "text-slate-500" : "text-gray-500")}>{formatTitleCase(trip.originAddress || 'N/A')}</p>
                                     </div>
 
                                     {paradas.length > 0 && (
@@ -191,7 +192,7 @@ export function TripDetailsModal({ isOpen, onClose, trip: rawTrip }: TripDetails
                                             {paradas.map((parada: any, index: any) => (
                                                 <div key={index} className={cn("flex items-start gap-2 py-1.5 text-sm", isDark ? "text-slate-300" : "text-gray-700")}>
                                                     <CircleDot className={cn("h-3 w-3 mt-1 flex-shrink-0", isDark ? "text-slate-600" : "text-gray-400")} />
-                                                    <span className="break-words">{parada}</span>
+                                                    <span className="break-words">{formatTitleCase(parada)}</span>
                                                 </div>
                                             ))}
                                         </div>
@@ -199,9 +200,9 @@ export function TripDetailsModal({ isOpen, onClose, trip: rawTrip }: TripDetails
 
                                     <div className={cn("p-3 rounded-lg", isDark ? "bg-slate-700/50" : "bg-emerald-50")}>
                                         <p className={cn("text-xs font-medium mb-1", isDark ? "text-slate-400" : "text-gray-500")}>Destino</p>
-                                        <p className={cn("font-semibold", isDark ? "text-emerald-400" : "text-emerald-600")}>{trip.destinationCity || 'N/A'}</p>
-                                        <p className={cn("text-sm", isDark ? "text-slate-300" : "text-gray-700")}>{trip.destinationLocation || 'N/A'}</p>
-                                        <p className={cn("text-xs mt-1", isDark ? "text-slate-500" : "text-gray-500")}>{trip.destinationAddress || 'N/A'}</p>
+                                        <p className={cn("font-semibold", isDark ? "text-emerald-400" : "text-emerald-600")}>{formatTitleCase(trip.destinationCity || 'N/A')}</p>
+                                        <p className={cn("text-sm", isDark ? "text-slate-300" : "text-gray-700")}>{formatTitleCase(trip.destinationLocation || 'N/A')}</p>
+                                        <p className={cn("text-xs mt-1", isDark ? "text-slate-500" : "text-gray-500")}>{formatTitleCase(trip.destinationAddress || 'N/A')}</p>
                                     </div>
                                 </Section>
 
@@ -223,12 +224,12 @@ export function TripDetailsModal({ isOpen, onClose, trip: rawTrip }: TripDetails
 
                                 {/* Veículo e Passageiros */}
                                 <Section title="🚌 Veículo e Passageiros" isDark={isDark}>
-                                    <InfoRow icon={Bus} label="Tipo de Veículo" value={trip.vehicleType || 'N/A'} isDark={isDark} />
+                                    <InfoRow icon={Bus} label="Tipo de Veículo" value={formatTitleCase(trip.vehicleType || 'N/A')} isDark={isDark} />
                                     <InfoRow icon={Bus} label="Quantidade de Veículos" value={trip.qtyVehicles || 'N/A'} isDark={isDark} />
                                     <InfoRow icon={User} label="Total de Passageiros" value={trip.qtyPassengers || 'N/A'} isDark={isDark} />
-                                    <InfoRow icon={Route} label="Modalidade" value={trip.modalidade || 'N/A'} isDark={isDark} />
+                                    <InfoRow icon={Route} label="Modalidade" value={formatTitleCase(trip.modalidade || 'N/A')} isDark={isDark} />
                                     <InfoRow icon={Info} label="Disponibilidade" value={trip.vehicleAvailability || 'N/A'} isDark={isDark} />
-                                    <InfoRow icon={Info} label="Capacidade" value={`${((trip.vehicleCapacity || 0) * 100).toFixed(1)}% (${trip.vehicleStatus || 'N/A'})`} isDark={isDark} />
+                                    <InfoRow icon={Info} label="Capacidade" value={`${((trip.vehicleCapacity || 0) * 100).toFixed(1)}% (${formatTitleCase(trip.vehicleStatus || 'N/A')})`} isDark={isDark} />
                                 </Section>
 
                                 {/* Valores */}

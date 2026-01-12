@@ -11,6 +11,7 @@ interface DataContextType {
     filteredData: TripData[];
     uniqueSectors: string[];
     uniqueMonths: string[];
+    updateData: () => void;
 }
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
@@ -26,7 +27,8 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
         status: '',
     });
 
-    useEffect(() => {
+    const fetchData = () => {
+        setLoading(true);
         fetch('https://script.google.com/macros/s/AKfycbzcC4wcOk7ze8Eq6GiJ1o2Y4JYpp5HoB18eWMf1HLeoRrI3Ua2Nr8XlIJQoMoGD2U0Y/exec')
             .then((res) => res.json())
             .then((rawData: ApiRow[]) => {
@@ -57,6 +59,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
                     ]
 
                     return {
+                        orderNumber: row['ORDEM']?.toString() || '',
                         seiNumber: row['NÚMERO DO SEI']?.toString() || '',
                         departureDate: departureDate,
                         status: row['STATUS FINAL']?.toString().toUpperCase() || 'DESCONHECIDO',
@@ -133,6 +136,10 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
                 setError('Erro ao carregar dados.');
                 setLoading(false);
             });
+    };
+
+    useEffect(() => {
+        fetchData();
     }, []);
 
     const uniqueSectors = useMemo(() => {
@@ -156,12 +163,16 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
         });
     }, [data, filters]);
 
+
     return (
-        <DataContext.Provider value={{ data, loading, error, filters, setFilters, filteredData, uniqueSectors, uniqueMonths }}>
+        <DataContext.Provider value={{ data, loading, error, filters, setFilters, filteredData, uniqueSectors, uniqueMonths, updateData: fetchData }}>
             {children}
+
         </DataContext.Provider>
     );
+
 }
+
 
 export function useData() {
     const context = useContext(DataContext);
