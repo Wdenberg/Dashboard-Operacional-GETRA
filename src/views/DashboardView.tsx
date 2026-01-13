@@ -64,12 +64,12 @@ export function DashboardView() {
             {/* KPIs */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <KpiCard
-                    title="Total de Viagens (SEI)"
+                    title="Total de Processos"
                     value={kpis.uniqueSei}
                     icon={<Car className="text-blue-500" size={24} />}
                 />
                 <KpiCard
-                    title="Total de Processos"
+                    title="Total de Solicitações"
                     value={kpis.totalRequests}
                     icon={<FileText className="text-purple-500" size={24} />}
                 />
