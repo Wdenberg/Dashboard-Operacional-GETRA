@@ -120,13 +120,6 @@ export function FinanceView() {
                     predLabel="Previsto" predValue={formatMoney(metrics.kmCostPred)}
                     realLabel="Realizado" realValue={formatMoney(metrics.kmCostReal)}
                 />
-                {/* Orçamento */}
-                <ComparisonCard
-                    title="Orçamento Total"
-                    icon={<DollarSign className="text-orange-500" />}
-                    predLabel="Orçamento Previsto" predValue={formatMoney(metrics.orçamentoTotal)}
-                    realLabel="Saldo Usado" realValue={formatMoney(metrics.orçamentoTotal - metrics.predicted)}
-                />
                 {/* Daily Quantity */}
                 <ComparisonCard
                     title="Diárias (Qtd)"
@@ -141,12 +134,28 @@ export function FinanceView() {
                     predLabel="Previsto" predValue={formatMoney(metrics.dailyCostPred)}
                     realLabel="Realizado" realValue={formatMoney(metrics.dailyCostReal)}
                 />
+                {/* Motorista Adicional */}
+                <ComparisonCard
+                    title="Motorista Adicional (Qtd)"
+                    icon={<DollarSign className="text-purple-500" />}
+                    predLabel="Previsto" predValue={formatNumber(0)}
+                    realLabel="Realizado" realValue={formatNumber(0)}
+                />
+
                 <ComparisonCard
                     title="Motorista Adicional (R$)"
                     icon={<DollarSign className="text-purple-500" />}
                     predLabel="Previsto" predValue={formatMoney(metrics.additionalDriverCostPred)}
                     realLabel="Realizado" realValue={formatMoney(metrics.additionalDriverCostReal)}
                 />
+                {/* Orçamento */}
+                <ComparisonCard
+                    title="Orçamento Total"
+                    icon={<DollarSign className="text-orange-500" />}
+                    predLabel="Orçamento Previsto" predValue={formatMoney(metrics.orçamentoTotal)}
+                    realLabel="Saldo Usado" realValue={formatMoney(metrics.orçamentoTotal - metrics.predicted)}
+                />
+
             </div>
 
             {/* Main Chart Section */}
