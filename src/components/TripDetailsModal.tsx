@@ -1,6 +1,6 @@
 
 import { ReactNode } from 'react';
-import { X, Calendar, FileText, Clock, Building2, Info, Flag, User, Phone, Mail, Bus, Route, CircleDot } from 'lucide-react';
+import { X, Calendar, Clock, Building2, Info, Flag, User, Phone, Mail, Bus, Route, CircleDot } from 'lucide-react';
 import { TripData } from '../types';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
