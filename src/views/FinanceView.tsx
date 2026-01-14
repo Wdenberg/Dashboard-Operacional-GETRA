@@ -17,6 +17,8 @@ export function FinanceView() {
             dailyCostPred: 0, dailyCostReal: 0,
             orçamentoTotal: 0,
             dailyQtyDone: 0,
+            additionalDriverPredicted: 0,
+            additionalDriverRealized: 0,
             additionalDriverCostPred: 0,
             additionalDriverCostReal: 0,
         };
@@ -138,8 +140,8 @@ export function FinanceView() {
                 <ComparisonCard
                     title="Motorista Adicional (Qtd)"
                     icon={<DollarSign className="text-purple-500" />}
-                    predLabel="Previsto" predValue={formatNumber(metrics.additionalDriverCostPred)}
-                    realLabel="Realizado" realValue={formatNumber(metrics.additionalDriverCostReal)}
+                    predLabel="Previsto" predValue={formatNumber(metrics.additionalDriverPredicted)}
+                    realLabel="Realizado" realValue={formatNumber(metrics.additionalDriverRealized)}
                 />
 
                 <ComparisonCard
