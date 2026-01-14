@@ -134,6 +134,9 @@ export function TripDetailsModal({ isOpen, onClose, trip: rawTrip }: TripDetails
                                     <h3 className={cn("text-lg font-bold", isDark ? "text-white" : "text-gray-900")}>
                                         {trip.seiNumber}
                                     </h3>
+                                    <h5 className={cn("text-lg font-bold", isDark ? "text-white" : "text-gray-900")}>
+                                        {trip.requestId}
+                                    </h5>
                                     <Badge className={cn("mt-2 border", isDark ? statusColors[trip.status] : statusColorsLight[trip.status])}>
                                         {formatTitleCase(trip.status)}
                                     </Badge>
@@ -154,7 +157,6 @@ export function TripDetailsModal({ isOpen, onClose, trip: rawTrip }: TripDetails
                             <div className="p-6">
                                 {/* Informações Gerais */}
                                 <Section title="📋 Informações Gerais" isDark={isDark}>
-                                    <InfoRow icon={FileText} label="Código da Solicitação" value={trip.requestId} isDark={isDark} />
                                     <InfoRow icon={Building2} label="Empresa" value={formatTitleCase(trip.company || 'N/A')} isDark={isDark} />
                                     <InfoRow icon={Info} label="Programa" value={formatTitleCase(trip.program || 'N/A')} isDark={isDark} />
                                     <InfoRow icon={Flag} label="Nome do Evento" value={formatTitleCase(trip.eventName || 'N/A')} isDark={isDark} />
@@ -186,17 +188,24 @@ export function TripDetailsModal({ isOpen, onClose, trip: rawTrip }: TripDetails
                                         <p className={cn("text-xs mt-1", isDark ? "text-slate-500" : "text-gray-500")}>{formatTitleCase(trip.originAddress || 'N/A')}</p>
                                     </div>
 
-                                    {paradas.length > 0 && (
+                                    {paradas && paradas.length > 0 && (
                                         <div className="mb-3">
                                             <p className={cn("text-xs font-medium mb-2", isDark ? "text-slate-400" : "text-gray-500")}>Paradas</p>
-                                            {paradas.map((parada: any, index: any) => (
-                                                <div key={index} className={cn("flex items-start gap-2 py-1.5 text-sm", isDark ? "text-slate-300" : "text-gray-700")}>
-                                                    <CircleDot className={cn("h-3 w-3 mt-1 flex-shrink-0", isDark ? "text-slate-600" : "text-gray-400")} />
-                                                    <span className="break-words">{formatTitleCase(parada)}</span>
-                                                </div>
-                                            ))}
+                                            {paradas.map((parada: any, index: any) => {
+                                                if (!parada) return null;
+
+
+                                                return (
+                                                    <div key={index} className={cn("flex items-start gap-2 py-1.5 text-sm", isDark ? "text-slate-300" : "text-gray-700")}>
+                                                        <CircleDot className={cn("h-3 w-3 mt-1 flex-shrink-0", isDark ? "text-slate-600" : "text-gray-400")} />
+                                                        <span className="break-words">{formatTitleCase(parada)}</span>
+                                                    </div>
+                                                )
+
+                                            })}
                                         </div>
                                     )}
+
 
                                     <div className={cn("p-3 rounded-lg", isDark ? "bg-slate-700/50" : "bg-emerald-50")}>
                                         <p className={cn("text-xs font-medium mb-1", isDark ? "text-slate-400" : "text-gray-500")}>Destino</p>
@@ -228,7 +237,7 @@ export function TripDetailsModal({ isOpen, onClose, trip: rawTrip }: TripDetails
                                     <InfoRow icon={Bus} label="Quantidade de Veículos" value={trip.qtyVehicles || 'N/A'} isDark={isDark} />
                                     <InfoRow icon={User} label="Total de Passageiros" value={trip.qtyPassengers || 'N/A'} isDark={isDark} />
                                     <InfoRow icon={Route} label="Modalidade" value={formatTitleCase(trip.modalidade || 'N/A')} isDark={isDark} />
-                                    <InfoRow icon={Info} label="Disponibilidade" value={trip.vehicleAvailability || 'N/A'} isDark={isDark} />
+                                    <InfoRow icon={Info} label="Disponibilidade" value={trip.vehicleStatus || 'N/A'} isDark={isDark} />
                                     <InfoRow icon={Info} label="Capacidade" value={`${((trip.vehicleCapacity || 0) * 100).toFixed(1)}% (${formatTitleCase(trip.vehicleStatus || 'N/A')})`} isDark={isDark} />
                                 </Section>
 

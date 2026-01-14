@@ -88,10 +88,7 @@ export function FinanceView() {
         };
     };
     */
-    console.log(`Motorista adcional ${metrics.additionalDriverPredicted}`)
-    console.log(`Motorista adcional ${metrics.additionalDriverRealized}`)
-    console.log(`Motorista adcional ${metrics.additionalDriverCostPred}`)
-    console.log(`Motorista adcional ${metrics.additionalDriverCostReal}`)
+
     return (
         <div className="space-y-6">
             <FilterBar />

@@ -32,7 +32,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
         fetch('https://script.google.com/macros/s/AKfycbzcC4wcOk7ze8Eq6GiJ1o2Y4JYpp5HoB18eWMf1HLeoRrI3Ua2Nr8XlIJQoMoGD2U0Y/exec')
             .then((res) => res.json())
             .then((rawData: ApiRow[]) => {
-                console.log('Raw API Data:', rawData[0]); // Debug first row
+
                 const mappedData = rawData.map((row) => {
                     let departureDate = new Date();
                     if (row['DATA DE SAÍDA']) {
@@ -96,8 +96,8 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
                         modalidade: row['MODALIDADE DA VIAGEM'] || '',
                         vehicleAvailability: row['DISPONIBILIDADE DE VEÍCULOS'] || '',
                         vehicleStatus: row['STATUS DA CAPACIDADE'] || '',
-                        additionalDriverPredicted: row['MOTORISTA ADICIONAL PREVISTO'] || '',
-                        additionalDriverRealized: row['MOTORISTA ADICIONAL REALIZADO'] || '',
+                        additionalDriverPredicted: parseCurrency(row['MOTORISTA ADICIONAL PREVISTO'] || 0),
+                        additionalDriverRealized: parseCurrency(row['MOTORISTA ADICIONAL REALIZADO'] || 0),
                         additionalDriverCostPredicted: parseCurrency(row['VALOR TOTAL DO MOTORISTA ADICIONAL PREVISTO'] || 0),
                         additionalDriverCostRealized: parseCurrency(row['VALOR TOTAL DO MOTORISTA ADICIONAL REALIZADO'] || 0),
                         dataEmailSent: row['DATA DO E-MAIL ENVIADO A EMPRESA'] || '',
