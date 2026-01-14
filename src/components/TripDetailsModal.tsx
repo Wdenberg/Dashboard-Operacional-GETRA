@@ -135,7 +135,7 @@ export function TripDetailsModal({ isOpen, onClose, trip: rawTrip }: TripDetails
                                         {trip.seiNumber}
                                     </h3>
                                     <h5 className={cn("text-lg font-bold", isDark ? "text-white" : "text-gray-900")}>
-                                        {trip.requestId}
+                                        {trip.orderNumber}
                                     </h5>
                                     <Badge className={cn("mt-2 border", isDark ? statusColors[trip.status] : statusColorsLight[trip.status])}>
                                         {formatTitleCase(trip.status)}
