@@ -24,18 +24,23 @@ export function FinanceView() {
         };
 
         filteredData.forEach(d => {
-            acc.predicted += d.predictedTotal || 0;
-            acc.realized += d.realizedTotal || 0;
+            acc.predicted += Number(d.predictedTotal) || 0;
+            acc.realized += Number(d.realizedTotal) || 0;
 
-            acc.kmPred += d.kmPredicted || 0;
-            acc.kmReal += d.kmRealized || 0;
-            acc.kmCostPred += d.kmCostPredicted || 0;
-            acc.kmCostReal += d.kmCostRealized || 0;
+            acc.kmPred += Number(d.kmPredicted) || 0;
+            acc.kmReal += Number(d.kmRealized) || 0;
+            acc.kmCostPred += Number(d.kmCostPredicted) || 0;
+            acc.kmCostReal += Number(d.kmCostRealized) || 0;
 
-            acc.dailyQtyPred += d.dailyQtyPredicted || 0;
-            acc.dailyQtyReal += d.dailyQtyRealized || 0;
-            acc.dailyCostPred += d.dailyCostPredicted || 0;
-            acc.dailyCostReal += d.dailyCostRealized || 0;
+            acc.dailyQtyPred += Number(d.dailyQtyPredicted) || 0;
+            acc.dailyQtyReal += Number(d.dailyQtyRealized) || 0;
+            acc.dailyCostPred += Number(d.dailyCostPredicted) || 0;
+            acc.dailyCostReal += Number(d.dailyCostRealized) || 0;
+
+            acc.additionalDriverPredicted += Number(d.additionalDriverPredicted) || 0;
+            acc.additionalDriverRealized += Number(d.additionalDriverRealized) || 0;
+            acc.additionalDriverCostPred += Number(d.additionalDriverCostPredicted) || 0;
+            acc.additionalDriverCostReal += Number(d.additionalDriverCostRealized) || 0;
 
         });
 
@@ -83,7 +88,10 @@ export function FinanceView() {
         };
     };
     */
-
+    console.log(`Motorista adcional ${metrics.additionalDriverPredicted}`)
+    console.log(`Motorista adcional ${metrics.additionalDriverRealized}`)
+    console.log(`Motorista adcional ${metrics.additionalDriverCostPred}`)
+    console.log(`Motorista adcional ${metrics.additionalDriverCostReal}`)
     return (
         <div className="space-y-6">
             <FilterBar />
@@ -147,8 +155,8 @@ export function FinanceView() {
                 <ComparisonCard
                     title="Motorista Adicional (R$)"
                     icon={<DollarSign className="text-purple-500" />}
-                    predLabel="Previsto" predValue={formatMoney(metrics.additionalDriverCostPred)}
-                    realLabel="Realizado" realValue={formatMoney(metrics.additionalDriverCostReal)}
+                    predLabel="Previsto" predValue={formatNumber(metrics.additionalDriverCostPred)}
+                    realLabel="Realizado" realValue={formatNumber(metrics.additionalDriverCostReal)}
                 />
                 {/* Orçamento */}
                 <ComparisonCard
