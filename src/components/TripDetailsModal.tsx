@@ -132,10 +132,10 @@ export function TripDetailsModal({ isOpen, onClose, trip: rawTrip }: TripDetails
                                         {formatTitleCase("Detalhes da Viagem")}
                                     </p>
                                     <h3 className={cn("text-lg font-bold", isDark ? "text-white" : "text-gray-900")}>
-                                        {trip.seiNumber}
+                                        {`Sei Nº ${trip.seiNumber}`}
                                     </h3>
                                     <h5 className={cn("text-lg font-bold", isDark ? "text-white" : "text-gray-900")}>
-                                        {trip.orderNumber}
+                                        {`Ordem # ${trip.orderNumber}`}
                                     </h5>
                                     <Badge className={cn("mt-2 border", isDark ? statusColors[trip.status] : statusColorsLight[trip.status])}>
                                         {formatTitleCase(trip.status)}
@@ -153,15 +153,15 @@ export function TripDetailsModal({ isOpen, onClose, trip: rawTrip }: TripDetails
                         </div>
 
                         {/* Content */}
-                        <ScrollArea className="h-[calc(100vh-100px)]">
+                        <ScrollArea className="h-[calc(100vh-122px)]">
                             <div className="p-6">
                                 {/* Informações Gerais */}
                                 <Section title="📋 Informações Gerais" isDark={isDark}>
                                     <InfoRow icon={Building2} label="Empresa" value={formatTitleCase(trip.company || 'N/A')} isDark={isDark} />
                                     <InfoRow icon={Info} label="Programa" value={formatTitleCase(trip.program || 'N/A')} isDark={isDark} />
                                     <InfoRow icon={Flag} label="Nome do Evento" value={formatTitleCase(trip.eventName || 'N/A')} isDark={isDark} />
-                                    <InfoRow icon={Calendar} label="Período do Evento" value={trip.eventPeriod || 'N/A'} isDark={isDark} />
-                                    <InfoRow icon={Clock} label="Horário do Evento" value={trip.eventTime || 'N/A'} isDark={isDark} />
+                                    <InfoRow icon={Calendar} label="Período do Evento" value={formatTitleCase(trip.eventPeriod || 'N/A')} isDark={isDark} />
+                                    <InfoRow icon={Clock} label="Horário do Evento" value={formatTitleCase(trip.eventTime || 'N/A')} isDark={isDark} />
                                 </Section>
 
                                 {/* Solicitante */}
@@ -237,7 +237,7 @@ export function TripDetailsModal({ isOpen, onClose, trip: rawTrip }: TripDetails
                                     <InfoRow icon={Bus} label="Quantidade de Veículos" value={trip.qtyVehicles || 'N/A'} isDark={isDark} />
                                     <InfoRow icon={User} label="Total de Passageiros" value={trip.qtyPassengers || 'N/A'} isDark={isDark} />
                                     <InfoRow icon={Route} label="Modalidade" value={formatTitleCase(trip.modalidade || 'N/A')} isDark={isDark} />
-                                    <InfoRow icon={Info} label="Disponibilidade" value={trip.vehicleStatus || 'N/A'} isDark={isDark} />
+                                    <InfoRow icon={Info} label="Disponibilidade" value={formatTitleCase(trip.vehicleDisponibility || 'N/A')} isDark={isDark} />
                                     <InfoRow icon={Info} label="Capacidade" value={`${((trip.vehicleCapacity || 0) * 100).toFixed(1)}% (${formatTitleCase(trip.vehicleStatus || 'N/A')})`} isDark={isDark} />
                                 </Section>
 
@@ -367,7 +367,7 @@ const Section = ({ title, children, isDark }: { title: string, children: ReactNo
         <h4 className={cn("text-sm font-semibold mb-3 flex items-center gap-2", isDark ? "text-slate-200" : "text-gray-800")}>
             {title}
         </h4>
-        <div className="space-y-3">
+        <div className="space-y-2">
             {children}
         </div>
     </div>

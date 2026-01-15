@@ -118,7 +118,8 @@ export interface TripData {
     vehicleType: string;
     qtyVehicles: number | string;
     modalidade: string;
-    vehicleAvailability: string;
+
+    vehicleDisponibility: string;
     vehicleStatus: string;
     additionalDriverPredicted: string;
     additionalDriverRealized: string;

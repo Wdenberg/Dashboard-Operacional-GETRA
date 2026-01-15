@@ -94,7 +94,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
                         vehicleType: row['TIPO DE VEÍCULO'] || '',
                         qtyVehicles: parseCurrency(row['QUANTIDADE DE VEÍCULOS'] || 0),
                         modalidade: row['MODALIDADE DA VIAGEM'] || '',
-                        vehicleAvailability: row['DISPONIBILIDADE DE VEÍCULOS'] || '',
+                        vehicleDisponibility: row['DISPONIBILIDADE DE VEÍCULO'] || '',
                         vehicleStatus: row['STATUS DA CAPACIDADE'] || '',
                         additionalDriverPredicted: parseCurrency(row['MOTORISTA ADICIONAL PREVISTO'] || 0),
                         additionalDriverRealized: parseCurrency(row['MOTORISTA ADICIONAL REALIZADO'] || 0),
