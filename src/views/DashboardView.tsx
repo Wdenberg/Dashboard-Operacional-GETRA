@@ -109,7 +109,7 @@ export function DashboardView() {
                         <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
                             {recentTrips.map((trip) => (
                                 <tr
-                                    key={trip.requestId}
+                                    key={trip.orderNumber}
 
                                     className="hover:bg-slate-50 dark:hover:bg-slate-700/50 cursor-pointer transition-colors"
                                 >

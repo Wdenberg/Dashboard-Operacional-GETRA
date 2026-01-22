@@ -4,6 +4,7 @@ import { useData } from '../context/DataContext';
 
 export function FilterBar() {
     const { filters, setFilters, uniqueSectors, uniqueMonths } = useData();
+    
 
     return (
         <div className="bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-700 flex flex-wrap gap-4 items-center">

@@ -152,6 +152,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
         return Array.from(months).sort().reverse();
     }, [data]);
 
+   // 1. Primeiro, filtramos a lista com base nos inputs do usuário
     const filteredData = useMemo(() => {
         return data.filter((item) => {
             const matchSei = item.seiNumber.toLowerCase().includes(filters.searchSei.toLowerCase());
@@ -162,6 +163,10 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
             return matchSei && matchSector && matchStatus && matchMonth;
         });
     }, [data, filters]);
+
+    // 2. Depois, calculamos as estatísticas baseadas na lista já filtrada
+    
+  
 
 
     return (
